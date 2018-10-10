@@ -23,10 +23,6 @@ import (
 	"github.com/segmentio/aws-okta/lib/saml"
 )
 
-const (
-	OktaServer = "okta.com"
-)
-
 type OktaClient struct {
 	Organization    string
 	Username        string
@@ -69,7 +65,7 @@ func (c *OktaCreds) Validate() error {
 
 func NewOktaClient(creds OktaCreds, oktaAwsSAMLUrl string, sessionCookie string) (*OktaClient, error) {
 	base, err := url.Parse(fmt.Sprintf(
-		"https://%s.%s", creds.Organization, OktaServer,
+		"https://%s", creds.Organization,
 	))
 	if err != nil {
 		return nil, err
@@ -380,7 +376,7 @@ func (o *OktaClient) Get(method string, path string, data []byte, recv interface
 	var client http.Client
 
 	url, err := url.Parse(fmt.Sprintf(
-		"https://%s.%s/%s", o.Organization, OktaServer, path,
+		"https://%s/%s", o.Organization, path,
 	))
 	if err != nil {
 		return err
