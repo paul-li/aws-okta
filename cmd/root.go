@@ -25,6 +25,7 @@ var (
 	backend           string
 	debug             bool
 	version           string
+	skipVerify        bool
 	analyticsWriteKey string
 	analyticsEnabled  bool
 	analyticsClient   analytics.Client
@@ -98,4 +99,5 @@ func init() {
 	}
 	RootCmd.PersistentFlags().StringVarP(&backend, "backend", "b", "", fmt.Sprintf("Secret backend to use %s", backendsAvailable))
 	RootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "Enable debug logging")
+	RootCmd.PersistentFlags().BoolVarP(&skipVerify, "skip", "s", false, "Disable SSL Verification (insecure!)")
 }
