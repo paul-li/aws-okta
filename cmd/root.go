@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"net/http"
+	"crypto/tls"
 
 	"github.com/99designs/keyring"
 	log "github.com/Sirupsen/logrus"
@@ -83,6 +85,10 @@ func prerun(cmd *cobra.Command, args []string) {
 			Traits: analytics.NewTraits().
 				Set("aws-okta-version", version),
 		})
+	}
+
+	if skipVerify {
+		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 }
 
